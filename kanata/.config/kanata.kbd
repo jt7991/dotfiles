@@ -1,0 +1,48 @@
+;; Only one defsrc is allowed.
+;;
+;; defsrc defines the keys that will be intercepted by kanata. The order of the
+;; keys matches the deflayer declarations and all deflayer declarations must
+;; have the same number of keys as defsrc.
+;;
+;; The visual/spatial positioning is *not* mandatory; it is done by convention
+;; for visual ease. These items are parsed as a long list with newlines being
+;; ignored.
+;;
+;; If you are looking for other keys, the file src/keys/mod.rs should hopefully
+;; provide some insight.
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(defalias
+amet (tap-hold 200 200 a lmet)   ;; tap: a      hold: meta
+salt (tap-hold 200 200 s lalt)   ;; tap: s      hold: left alt
+dsh (tap-hold 200 200 d lsft)   ;; tap: d      hold: left shift
+fctrl (tap-hold 200 200 f lctl)   ;; tap: f      hold: left ctrl
+
+semimet (tap-hold 200 200 ; rmet)   ;; tap: semi      hold: meta
+altl (tap-hold 200 200 l ralt)   ;; tap: l      hold: right alt
+ksh (tap-hold 200 200 k rsft)   ;; tap: k      hold: right shift
+jctrl (tap-hold 200 200 j rctl)   ;; tap: j      hold: right ctrl
+spcmod (tap-hold 200 200 spc (layer-toggle arrows))   ;; tap: spc      hold: arrows
+)
+
+(deflayer qwerty
+  grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  esc @amet    @salt    @dsh    @fctrl    g    h    @jctrl    @ksh    @altl    @semimet    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           @spcmod            ralt rmet rctl
+)
+
+(deflayer arrows
+  grv 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  esc @amet    @salt    @dsh    @fctrl    g    left    down    up    right    @semimet    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
