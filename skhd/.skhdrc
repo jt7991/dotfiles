@@ -1,0 +1,82 @@
+# --- Yabai Global Reload ---
+# Reload yabai config by pressing `cmd + r`
+cmd + shift + ctrl + alt - r : yabai --load-config
+
+# --- Window Focus (vim-like navigation) ---
+# Focus window south/north/west/east using `cmd + j/k/h/l`
+alt + shift - j : yabai -m window --focus south
+alt + shift - k : yabai -m window --focus north
+alt + shift - h : yabai -m window --focus west
+alt + shift - l : yabai -m window --focus east
+
+# --- Window Movement ---
+# Move window south/north/west/east using `shift + cmd + j/k/h/l`
+shift + cmd - j : yabai -m window --swap south
+shift + cmd - k : yabai -m window --swap north
+shift + cmd - h : yabai -m window --swap west
+shift + cmd - l : yabai -m window --swap east
+
+# --- Window Warp (move and split - requires SIP partial disablement) ---
+# This feature requires SIP to be partially disabled for seamless behavior
+# You could use `ctrl + cmd` for these, for example.
+# ctrl + cmd - j : yabai -m window --warp south
+# ctrl + cmd - k : yabai -m window --warp north
+# ctrl + cmd - h : yabai -m window --warp west
+# ctrl + cmd - l : yabai -m window --warp east
+
+# --- Space Management ---
+# Focus next/previous space using `cmd + right/left` arrow
+cmd - right : yabai -m space --focus next
+cmd - left  : yabai -m space --focus prev
+
+# Move window to next/previous space using `shift + cmd + right/left` arrow
+#shift + cmd - l : yabai -m window --space next
+# shift + cmd - h  : yabai -m window --space prev
+
+# Focus specific space (adjust for your number of spaces)
+# This assumes you have spaces 1 through 5, customize as needed.
+# Use `cmd + number` for direct space focus
+alt + shift - y : yabai -m space --focus 4
+alt + shift - u : yabai -m space --focus 1
+alt + shift - i : yabai -m space --focus 2
+alt + shift - o : yabai -m space --focus 3
+alt + shift - 0x23 : yabai -m space --focus 5
+
+# Move window to specific space (shift + cmd + number)
+shift + cmd - y : yabai -m window --space 4
+shift + cmd - u : yabai -m window --space 1
+shift + cmd - i : yabai -m window --space 2
+shift + cmd - o : yabai -m window --space 3
+shift + cmd - 0x23 : yabai -m window --space 5
+
+# --- Layout and Window Properties ---
+# Toggle window fullscreen (native or zoom) using `cmd + f`
+shift + cmd - f : yabai -m window --toggle zoom-fullscreen
+# Toggle window float using `cmd + t`
+shift + cmd - t : yabai -m window --toggle float
+# Balance current space (auto-adjust window sizes) using `cmd + e`
+cmd - e : yabai -m space --balance
+# Cycle between different split directions (vertical/horizontal) using `cmd + s`
+cmd - s : yabai -m window --toggle split
+
+# --- Application Launchers (examples) ---
+# Replace with your preferred applications and hotkeys.
+# Using `ctrl + cmd` or `alt + cmd` for these can help avoid conflicts with system apps.
+# For instance, `cmd + enter` might conflict with some app's default behavior.
+# Let's use `ctrl + cmd` here as an example to avoid common `cmd` conflicts.
+ctrl + cmd + shift + alt - return : osascript -e 'tell application "Ghostty" to make new window' || open -na "Ghostty"
+ctrl + cmd + shift + alt - b     : open -na "Brave Browser"
+ctrl + cmd + shift + alt - g     : open -na "Brave Browser" --args --new-window "https://github.com/Finni-Health/finni/pulls"
+ctrl + cmd + shift + alt - n     : open -na "Brave Browser" --args --new-window  "https://www.notion.so/finnihealth/Product-Roadmap"
+ctrl + cmd + shift + alt - m     : open -na "Brave Browser" --args --new-window "https://www.gmail.com"
+ctrl + cmd + shift + alt - a     : open -na "Brave Browser" --args --new-window "https://gemini.google.com/app"
+
+# --- Other useful bindings (optional) ---
+# Close focused window (cmd + w) - BE CAREFUL, this is a very common macOS shortcut for closing tabs/windows!
+# You might prefer `cmd + shift + w` or another less common combination.
+cmd - w : yabai -m window --close
+
+# Force quit application (cmd + q) - Conflicts with macOS default quit shortcut.
+# Consider using `cmd + shift + q` or `alt + cmd + q`.
+# cmd - q : yabai -m window --kill
+
