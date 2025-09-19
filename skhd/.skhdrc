@@ -64,12 +64,19 @@ cmd - s : yabai -m window --toggle split
 # Using `ctrl + cmd` or `alt + cmd` for these can help avoid conflicts with system apps.
 # For instance, `cmd + enter` might conflict with some app's default behavior.
 # Let's use `ctrl + cmd` here as an example to avoid common `cmd` conflicts.
-ctrl + cmd + shift + alt - return : osascript -e 'tell application "Ghostty" to make new window' || open -na "Ghostty"
+ctrl + cmd + shift + alt - l : kitty --single-instance -d ~/finni lazygit
+ctrl + cmd + shift + alt - return : kitty --single-instance
 ctrl + cmd + shift + alt - b     : open -na "Brave Browser"
-ctrl + cmd + shift + alt - g     : open -na "Brave Browser" --args --new-window "https://github.com/Finni-Health/finni/pulls"
+ctrl + cmd + shift + alt - g     : open -na "Github" 
 ctrl + cmd + shift + alt - n     : open -na "Brave Browser" --args --new-window  "https://www.notion.so/finnihealth/Product-Roadmap"
 ctrl + cmd + shift + alt - m     : open -na "Brave Browser" --args --new-window "https://www.gmail.com"
-ctrl + cmd + shift + alt - a     : open -na "Brave Browser" --args --new-window "https://gemini.google.com/app"
+ctrl + cmd + shift + alt - a     : open -na "Google Gemini"
+
+# # Terminal mode
+cmd - return : kitty --single-instance
+cmd + shift - return : kitty --single-instance -d ~/finni
+
+
 
 # --- Other useful bindings (optional) ---
 # Close focused window (cmd + w) - BE CAREFUL, this is a very common macOS shortcut for closing tabs/windows!
