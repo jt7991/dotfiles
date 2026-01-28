@@ -1,9 +1,6 @@
 return {
   -- Highlight, edit, and navigate code
   "nvim-treesitter/nvim-treesitter",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-  },
   main = "nvim-treesitter.config",
   build = ":TSUpdate",
   config = function()
@@ -42,64 +39,18 @@ return {
           node_decremental = "<M-space>",
         },
       },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-          keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["i="] = "@assignment.inner",
-            ["a="] = "@assignment.outer",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-        spell = {
-          enable = true,
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>A"] = "@parameter.inner",
-          },
-        },
-      },
     })
 
-    local ts_installed = require("nvim-treesitter").get_installed()
     -- Enable treesitter highlighting for all configured languages
     local treesitter_group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true })
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = ts_installed,
-      callback = function()
-        vim.treesitter.start()
+      pattern = "*",
+      callback = function(args)
+        local filetype = vim.bo[args.buf].filetype
+        local lang = vim.treesitter.language.get_lang(filetype)
+        if lang then
+          pcall(vim.treesitter.start, args.buf, lang)
+        end
       end,
       group = treesitter_group,
     })
